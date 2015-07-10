@@ -67,7 +67,7 @@ def unit(val, in_unit, out_unit, dbname='unit.db'):
         else:
             # print error message
             print('Input unit ('+in_unit+') is not of the same type as the out'
-                'put units ('+out_unit+'). Input type is '+in_row[3]+' and o'
-                'utput type is '+out_row[3]+'.')
+                  'put units ('+out_unit+'). Input type is '+in_row[3]+' and o'
+                  'utput type is '+out_row[3]+'.')
             # end function
             return
