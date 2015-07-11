@@ -11,140 +11,137 @@ import math as m
 # W     - Humidity ratio                - kilograms per kilograms, kg/kg
 # WBT   - Wet bulb temperature          - Kelvins, K
 
-def DBT_H_RH_P(H, RH, P):
-    DBTa=273.15
-    DBTb=473.15
+# Minimum dry bulb temperature
+Min_DBT=273.15
+# Maximum dry bulb temperature
+Max_DBT=473.15
+# Convergence tolerance
+TOL=0.0005
+
+def __DBT_H_RH_P(H, RH, P):
+    [DBTa, DBTb]=[Min_DBT, Max_DBT]
     DBT=(DBTa+DBTb)/2
-    while DBTb-DBTa>0.0005:
+    while DBTb-DBTa>TOL:
         ya=W_DBT_RH_P(DBTa, RH, P)-W_DBT_H(DBTa, H)
         y=W_DBT_RH_P(DBT, RH, P)-W_DBT_H(DBT, H)
-        if is_positive(y)==is_positive(ya):
+        if __is_positive(y)==__is_positive(ya):
             DBTa=DBT
         else:
             DBTb=DBT
         DBT=(DBTa+DBTb)/2
     return DBT
 
-def DBT_H_V_P(H, V, P):
-    DBTa=273.15
-    DBTb=473.15
+def __DBT_H_V_P(H, V, P):
+    [DBTa, DBTb]=[Min_DBT, Max_DBT]
     DBT=(DBTa+DBTb)/2
-    while DBTb-DBTa>0.0005:
+    while DBTb-DBTa>TOL:
         ya=W_DBT_V_P(DBTa, V, P)-W_DBT_H(DBTa, H)
         y=W_DBT_V_P(DBT, V, P)-W_DBT_H(DBT, H)
-        if is_positive(y)==is_positive(ya):
+        if __is_positive(y)==__is_positive(ya):
             DBTa=DBT
         else:
             DBTb=DBT
         DBT=(DBTa+DBTb)/2
     return DBT
 
-def DBT_H_W(H, W):
-    DBTa=273.15
-    DBTb=473.15
+def __DBT_H_W(H, W):
+    [DBTa, DBTb]=[Min_DBT, Max_DBT]
     DBT=(DBTa+DBTb)/2
-    while DBTb-DBTa>0.0005:
+    while DBTb-DBTa>TOL:
         ya=W-W_DBT_H(DBTa, H)
         y=W-W_DBT_H(DBT, H)
-        if is_positive(y)==is_positive(ya):
+        if __is_positive(y)==__is_positive(ya):
             DBTa=DBT
         else:
             DBTb=DBT
         DBT=(DBTa+DBTb)/2
     return DBT
 
-def DBT_H_WBT_P(H, WBT, P):
-    DBTa=273.15
-    DBTb=473.15
+def __DBT_H_WBT_P(H, WBT, P):
+    [DBTa, DBTb]=[Min_DBT, Max_DBT]
     DBT=(DBTa+DBTb)/2
-    while DBTb-DBTa>0.0005:
+    while DBTb-DBTa>TOL:
         ya=W_DBT_WBT_P(DBTa, WBT, P)-W_DBT_H(DBTa, H)
         y=W_DBT_WBT_P(DBT, WBT, P)-W_DBT_H(DBT, H)
-        if is_positive(y)==is_positive(ya):
+        if __is_positive(y)==__is_positive(ya):
             DBTa=DBT
         else:
             DBTb=DBT
         DBT=(DBTa+DBTb)/2
     return DBT
 
-def DBT_RH_V_P(RH, V, P):
-    DBTa=273.15
-    DBTb=473.15
+def __DBT_RH_V_P(RH, V, P):
+    [DBTa, DBTb]=[Min_DBT, Max_DBT]
     DBT=(DBTa+DBTb)/2
-    while DBTb-DBTa>0.0005:
+    while DBTb-DBTa>TOL:
         ya=W_DBT_RH_P(DBTa, RH, P)-W_DBT_V_P(DBTa, V, P)
         y=W_DBT_RH_P(DBT, RH, P)-W_DBT_V_P(DBT, V, P)
-        if is_positive(y)==is_positive(ya):
+        if __is_positive(y)==__is_positive(ya):
             DBTa=DBT
         else:
             DBTb=DBT
         DBT=(DBTa+DBTb)/2
     return DBT
 
-def DBT_RH_W_P(RH, W, P):
-    DBTa=273.15
-    DBTb=473.15
+def __DBT_RH_W_P(RH, W, P):
+    [DBTa, DBTb]=[Min_DBT, Max_DBT]
     DBT=(DBTa+DBTb)/2
-    while DBTb-DBTa>0.0005:
+    while DBTb-DBTa>TOL:
         ya=W_DBT_RH_P(DBTa, RH, P)-W
         y=W_DBT_RH_P(DBT, RH, P)-W
-        if is_positive(y)==is_positive(ya):
+        if __is_positive(y)==__is_positive(ya):
             DBTa=DBT
         else:
             DBTb=DBT
         DBT=(DBTa+DBTb)/2
     return DBT
 
-def DBT_RH_WBT_P(RH, WBT, P):
-    DBTa=273.15
-    DBTb=473.15
+def __DBT_RH_WBT_P(RH, WBT, P):
+    [DBTa, DBTb]=[Min_DBT, Max_DBT]
     DBT=(DBTa+DBTb)/2
-    while DBTb-DBTa>0.0005:
+    while DBTb-DBTa>TOL:
         ya=W_DBT_WBT_P(DBTa, WBT, P)-W_DBT_RH_P(DBTa, RH, P)
         y=W_DBT_WBT_P(DBT, WBT, P)-W_DBT_RH_P(DBT, RH, P)
-        if is_positive(y)==is_positive(ya):
+        if __is_positive(y)==__is_positive(ya):
             DBTa=DBT
         else:
             DBTb=DBT
         DBT=(DBTa+DBTb)/2
     return DBT
 
-def DBT_V_W_P(V, W, P):
-    DBTa=273.15
-    DBTb=473.15
+def __DBT_V_W_P(V, W, P):
+    [DBTa, DBTb]=[Min_DBT, Max_DBT]
     DBT=(DBTa+DBTb)/2
-    while DBTb-DBTa>0.0005:
+    while DBTb-DBTa>TOL:
         ya=W-W_DBT_V_P(DBTa, V, P)
         y=W-W_DBT_V_P(DBT, V, P)
-        if is_positive(y)==is_positive(ya):
+        if __is_positive(y)==__is_positive(ya):
             DBTa=DBT
         else:
             DBTb=DBT
         DBT=(DBTa+DBTb)/2
     return DBT
 
-def DBT_V_WBT_P(V, WBT, P):
-    DBTa=273.15
-    DBTb=473.15
+def __DBT_V_WBT_P(V, WBT, P):
+    [DBTa, DBTb]=[Min_DBT, Max_DBT]
     DBT=(DBTa+DBTb)/2
-    while DBTb-DBTa>0.0005:
+    while DBTb-DBTa>TOL:
         ya=W_DBT_WBT_P(DBTa, WBT, P)-W_DBT_V_P(DBTa, V, P)
         y=W_DBT_WBT_P(DBT, WBT, P)-W_DBT_V_P(DBT, V, P)
-        if is_positive(y)==is_positive(ya):
+        if __is_positive(y)==__is_positive(ya):
             DBTa=DBT
         else:
             DBTb=DBT
         DBT=(DBTa+DBTb)/2
     return DBT
 
-def DBT_W_WBT_P(W, WBT, P):
-    DBTa=273.15
-    DBTb=473.15
+def __DBT_W_WBT_P(W, WBT, P):
+    [DBTa, DBTb]=[Min_DBT, Max_DBT]
     DBT=(DBTa+DBTb)/2
-    while DBTb-DBTa>0.0005:
+    while DBTb-DBTa>TOL:
         ya=W_DBT_WBT_P(DBTa, WBT, P)-W
         y=W_DBT_WBT_P(DBT, WBT, P)-W
-        if is_positive(y)==is_positive(ya):
+        if __is_positive(y)==__is_positive(ya):
             DBTa=DBT
         else:
             DBTb=DBT
@@ -152,7 +149,7 @@ def DBT_W_WBT_P(W, WBT, P):
     return DBT
 
 # ASHRAE 2009 Chapter 1 Equation 39
-def DPT_Pw(Pw):
+def __DPT_Pw(Pw):
     Pw=Pw/1000
     C14=6.54
     C15=14.529
@@ -163,23 +160,23 @@ def DPT_Pw(Pw):
     return (C14+C15*a+C16*a**2+C17*a**3+C18*Pw**0.1984)+273.15
 
 # ASHRAE 2009 Chapter 1 Equation 32
-def H_DBT_W(DBT, W):
+def __H_DBT_W(DBT, W):
     if valid_DBT(DBT):
         DBT=DBT-273.15
         return 1.006*DBT+W*(2501+1.86*DBT)
 
-def is_positive(x):
+def __is_positive(x):
     if x>0:
         return True
     else:
         return False
 
 # ASHRAE 2009 Chapter 1 Equation 22
-def Pw_W_P(W, P):
+def __Pw_W_P(W, P):
     return W*P/(W+0.621945)
 
 # ASHRAE 2009 Chapter 1 Equation 6
-def Pws(DBT):
+def __Pws(DBT):
     if valid_DBT(DBT):
         C8=-5.8002206*10**3
         C9=1.3914993
@@ -214,25 +211,25 @@ def state(prop1, prop1val, prop2, prop2val,P):
         if cd2=="WBT":
             WBT=cd2val
             W=W_DBT_WBT_P(DBT, WBT, P)
-            H=H_DBT_W(DBT, W)
+            H=__H_DBT_W(DBT, W)
             RH=RH_DBT_W_P(DBT, W, P)
             V=V_DBT_W_P(DBT, W, P)
         elif cd2=="RH":
             RH=cd2val
             W=W_DBT_RH_P(DBT, RH, P)
-            H=H_DBT_W(DBT, W)
+            H=__H_DBT_W(DBT, W)
             V=V_DBT_W_P(DBT, W, P)
             WBT=WBT_DBT_W_P(DBT, W, P)
         elif cd2=="W":
             W=cd2val
-            H=H_DBT_W(DBT, W)
+            H=__H_DBT_W(DBT, W)
             RH=RH_DBT_W_P(DBT, W, P)
             V=V_DBT_W_P(DBT, W, P)
             WBT=WBT_DBT_W_P(DBT, W, P)
         elif cd2=="V":
             V=cd2val
             W=W_DBT_V_P(DBT, V, P)
-            H=H_DBT_W(DBT, W)
+            H=__H_DBT_W(DBT, W)
             RH=RH_DBT_W_P(DBT, W, P)
             WBT=WBT_DBT_W_P(DBT, W, P)
         elif cd2=="H":
@@ -245,25 +242,25 @@ def state(prop1, prop1val, prop2, prop2val,P):
         WBT=cd1val
         if cd2=="RH":
             RH=cd2val
-            DBT=DBT_RH_WBT_P(RH, WBT, P)
+            DBT=__DBT_RH_WBT_P(RH, WBT, P)
             W=W_DBT_RH_P(DBT, RH, P)
-            H=H_DBT_W(DBT, W)
+            H=__H_DBT_W(DBT, W)
             V=V_DBT_W_P(DBT, W, P)
         elif cd2=="W":
             W=cd2val
-            DBT=DBT_W_WBT_P(W, WBT, P)
-            H=H_DBT_W(DBT, W)
+            DBT=__DBT_W_WBT_P(W, WBT, P)
+            H=__H_DBT_W(DBT, W)
             RH=RH_DBT_W_P(DBT, W, P)
             V=V_DBT_W_P(DBT, W, P)
         elif cd2=="V":
             V=cd2val
-            DBT=DBT_V_WBT_P(V, WBT, P)
+            DBT=__DBT_V_WBT_P(V, WBT, P)
             W=W_DBT_V_P(DBT, V, P)
-            H=H_DBT_W(DBT, W)
+            H=__H_DBT_W(DBT, W)
             RH=RH_DBT_W_P(DBT, W, P)
         elif cd2=="H":
             H=cd2val
-            DBT=DBT_H_WBT_P(H, WBT, P)
+            DBT=__DBT_H_WBT_P(H, WBT, P)
             W=W_DBT_H(DBT, H)
             RH=RH_DBT_W_P(DBT, W, P)
             V=V_DBT_W_P(DBT, W, P)
@@ -271,19 +268,19 @@ def state(prop1, prop1val, prop2, prop2val,P):
         RH=cd1val
         if cd2=="W":
             W=cd2val
-            DBT=DBT_RH_W_P(RH, W, P)
-            H=H_DBT_W(DBT, W)
+            DBT=__DBT_RH_W_P(RH, W, P)
+            H=__H_DBT_W(DBT, W)
             V=V_DBT_W_P(DBT, W, P)
             WBT=WBT_DBT_W_P(DBT, W, P)
         elif cd2=="V":
             V=cd2val
-            DBT=DBT_RH_V_P(RH, V, P)
+            DBT=__DBT_RH_V_P(RH, V, P)
             W=W_DBT_RH_P(DBT, RH, P)
-            H=H_DBT_W(DBT, W)
+            H=__H_DBT_W(DBT, W)
             WBT=WBT_DBT_W_P(DBT, W, P)
         elif cd2=="H":
             H=cd2val
-            DBT=DBT_H_RH_P(H, RH, P)
+            DBT=__DBT_H_RH_P(H, RH, P)
             W=W_DBT_RH_P(DBT, RH, P)
             V=V_DBT_W_P(DBT, W, P)
             WBT=WBT_DBT_W_P(DBT, W, P)
@@ -291,20 +288,20 @@ def state(prop1, prop1val, prop2, prop2val,P):
         W=cd1val
         if cd2=="V":
             V=cd2val
-            DBT=DBT_V_W_P(V, W, P)
-            H=H_DBT_W(DBT, W)
+            DBT=__DBT_V_W_P(V, W, P)
+            H=__H_DBT_W(DBT, W)
             RH=RH_DBT_W_P(DBT, W, P)
             WBT=WBT_DBT_W_P(DBT, W, P)
         elif cd2=="H":
             H=cd2val
-            DBT=DBT_H_W(H, W)
+            DBT=__DBT_H_W(H, W)
             RH=RH_DBT_W_P(DBT, W, P)
             V=V_DBT_W_P(DBT, W, P)
             WBT=WBT_DBT_W_P(DBT, W, P)
     elif cd1=="V":
         V=cd1val
         H=cd2val
-        DBT=DBT_H_V_P(H, V, P)
+        DBT=__DBT_H_V_P(H, V, P)
         W=W_DBT_V_P(DBT, V, P)
         RH=RH_DBT_W_P(DBT, W, P)
         WBT=WBT_DBT_W_P(DBT, W, P)
@@ -313,7 +310,7 @@ def state(prop1, prop1val, prop2, prop2val,P):
 # ASHRAE 2009 Chapter 1 Equation 22 and Equation 24
 def RH_DBT_W_P(DBT, W, P):
     if valid_DBT(DBT):
-        return W*P/((0.621945+W)*Pws(DBT))
+        return W*P/((0.621945+W)*__Pws(DBT))
 
 # ASHRAE 2009 Chapter 1 Equation 28
 def V_DBT_W_P(DBT, W, P):
@@ -329,7 +326,7 @@ def W_DBT_H(DBT, H):
 # ASHRAE 2009 Chapter 1 Equation 22 and Equation 24
 def W_DBT_RH_P(DBT, RH, P):
     if valid_DBT(DBT):
-        Pw=RH*Pws(DBT)
+        Pw=RH*__Pws(DBT)
         return 0.621945*Pw/(P-Pw)
 
 # ASHRAE 2009 Chapter 1 Equation 28
@@ -348,10 +345,10 @@ def W_DBT_WBT_P(DBT, WBT, P):
 # ASHRAE 2009 Chapter 1 Equation 35
 def WBT_DBT_W_P(DBT, W, P):
     if valid_DBT(DBT):
-        WBTa=DPT_Pw(Pw_W_P(W, P))
+        WBTa=__DPT_Pw(__Pw_W_P(W, P))
         WBTb=DBT
         WBT=(WBTa+WBTb)/2
-        while WBTb-WBTa>0.0005:
+        while WBTb-WBTa>TOL:
             Ws=W_DBT_WBT_P(DBT, WBT, P)
             if W>Ws:
                 WBTa=WBT
@@ -361,7 +358,7 @@ def WBT_DBT_W_P(DBT, W, P):
         return WBT
 
 def valid_DBT(DBT):
-    if 273.15<=DBT<=473.15:
+    if Min_DBT<=DBT<=Max_DBT:
         return True
     else:
         return False
