@@ -1,4 +1,3 @@
-import convert as c
 import math as m
 
 # All functions expect base SI units for any arguments given
