@@ -46,3 +46,5 @@ Temporary Items
 __pycache__
 check.py
 check.xmcd
+convert.py
+unit.db
