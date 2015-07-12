@@ -4,7 +4,7 @@ Python library to calculate psychrometric states of moist air.
 
 Installation:
 
-Place either psySI.py or psyIP.py file in your python working directory. If you
+Place either psySI.py or psyIP.py file in your working directory. If you
 are working with the international system of units (i.e. SI) then use psySI.py.
 If you are are working with imperial units (i.e. IP) then use psyIP.py.
 
